@@ -40,7 +40,7 @@ function AttentionMechanismPage() {
 
   return (
     <Container>
-      <Typography variant="h4" component="div" style={{ marginBottom: '20px' }}>
+      <Typography variant="h4" component="div" style={{ marginBottom: '20px',  marginTop:'20px' }}>
         Attention Mechanism
       </Typography>
       <Typography variant="body1" style={{ marginBottom: '20px' }}>

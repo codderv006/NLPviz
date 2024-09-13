@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import { Container, TextField, Typography, Button } from "@mui/material";
+import { Container, TextField, Typography, Button, Box } from "@mui/material";
 
+// Expanded categories with more words
 const mockCategories = {
-  sports: ["football", "basketball", "tennis"],
-  technology: ["computer", "software", "AI"],
+  sports: ["football", "basketball", "tennis", "soccer", "cricket"],
+  technology: ["computer", "software", "AI", "internet", "robotics"],
+  travel: ["vacation", "holiday", "trip", "destination", "journey"],
+  food: ["pizza", "burger", "sushi", "pasta", "salad"],
 };
 
 function TextClassificationPage() {
@@ -11,12 +14,14 @@ function TextClassificationPage() {
   const [category, setCategory] = useState("");
 
   const classifyText = () => {
-    const words = text.split(/\s+/);
+    const lowercasedText = text.toLowerCase();
+    const words = lowercasedText.split(/\s+/);
     const categories = Object.keys(mockCategories);
     let detectedCategory = "Unknown";
 
+    // Check each category for matching keywords
     for (const category of categories) {
-      if (words.some((word) => mockCategories[category].includes(word))) {
+      if (mockCategories[category].some((keyword) => lowercasedText.includes(keyword))) {
         detectedCategory = category;
         break;
       }
@@ -27,9 +32,30 @@ function TextClassificationPage() {
 
   return (
     <Container>
-      <Typography variant="h4" component="div" style={{ marginBottom: "20px" }}>
+      <Typography variant="h4" component="div" style={{ marginBottom: "20px",  marginTop:'20px' }}>
         Text Classification
       </Typography>
+      <Typography variant="body1" component="div" style={{ marginBottom: "20px" }}>
+        Text classification involves assigning a category or label to text based on its content. 
+        This example classifies sentences into categories like "sports", "technology", "travel", and "food".
+      </Typography>
+      <Typography variant="body1" component="div" style={{ marginBottom: "20px" }}>
+        Example categories:
+      </Typography>
+      <Box sx={{ marginBottom: "20px" }}>
+        <Typography variant="body1" component="div" style={{ marginBottom: "10px" }}>
+          - <strong>Sports:</strong> Includes words like "football", "basketball", "soccer".
+        </Typography>
+        <Typography variant="body1" component="div" style={{ marginBottom: "10px" }}>
+          - <strong>Technology:</strong> Includes words like "computer", "AI", "robotics".
+        </Typography>
+        <Typography variant="body1" component="div" style={{ marginBottom: "10px" }}>
+          - <strong>Travel:</strong> Includes words like "vacation", "trip", "journey".
+        </Typography>
+        <Typography variant="body1" component="div" style={{ marginBottom: "10px" }}>
+          - <strong>Food:</strong> Includes words like "pizza", "burger", "sushi".
+        </Typography>
+      </Box>
       <TextField
         fullWidth
         multiline

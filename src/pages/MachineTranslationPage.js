@@ -9,20 +9,7 @@ import {
   FormControl,
   InputLabel,
 } from "@mui/material";
-
-// Mock translations for English, Hindi, and Marathi
-const mockTranslations = {
-  hello: {
-    es: "hola",
-    hi: "नमस्ते",
-    mr: "नमस्कार",
-  },
-  world: {
-    es: "mundo",
-    hi: "दुनिया",
-    mr: "जग",
-  },
-};
+import axios from 'axios';
 
 // Placeholder texts for different languages
 const placeholders = {
@@ -36,21 +23,40 @@ function MachineTranslationPage() {
   const [translation, setTranslation] = useState("");
   const [language, setLanguage] = useState("hi"); // Default to Hindi
 
-  const translateText = () => {
-    const words = text.toLowerCase().split(/\s+/);
-    const translated = words
-      .map((word) => {
-        // Get the translations for the selected language
-        const translations = mockTranslations[word] || {};
-        return translations[language] || word;
-      })
-      .join(" ");
-    setTranslation(translated);
+  const translateText = async () => {
+    if (!text) {
+      alert("Please enter some text.");
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        "https://deep-translate1.p.rapidapi.com/language/translate/v2",
+        {
+          q: text,
+          source: "en",
+          target: language,
+        },
+        {
+          headers: {
+            "X-Rapidapi-Key": process.env.REACT_APP_RAPIDAPI_KEY,
+            "X-Rapidapi-Host": "deep-translate1.p.rapidapi.com",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const translatedText = response.data.data.translations.translatedText;
+      setTranslation(translatedText);
+    } catch (error) {
+      console.error("Error translating text:", error);
+      setTranslation("Translation failed.");
+    }
   };
 
   return (
     <Container>
-      <Typography variant="h4" component="div" style={{ marginBottom: "20px" }}>
+      <Typography variant="h4" component="div" style={{ marginBottom: "20px", marginTop: '20px' }}>
         Machine Translation
       </Typography>
 
@@ -78,8 +84,7 @@ function MachineTranslationPage() {
         >
           <MenuItem value="hi">Hindi</MenuItem>
           <MenuItem value="mr">Marathi</MenuItem>
-          <MenuItem value="es">Spanish</MenuItem>{" "}
-          {/* Adding Spanish as an example */}
+          <MenuItem value="es">Spanish</MenuItem> {/* Adding Spanish as an example */}
         </Select>
       </FormControl>
       <Button variant="contained" color="primary" onClick={translateText}>
