@@ -122,9 +122,6 @@ function App() {
         {/* Navbar */}
         <AppBar position="static" color="primary">
           <Toolbar>
-            <IconButton edge="start" color="inherit" aria-label="menu">
-              <MenuIcon />
-            </IconButton>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               NLP Visualizer
             </Typography>
