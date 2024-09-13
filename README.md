@@ -65,7 +65,7 @@ Welcome to the NLP Visualizer! 🌐 This web application offers an interactive a
 ## Deployment
 
 - The backend is deployed on Render: [https://nlpviz.onrender.com](https://nlpviz.onrender.com)
-- The frontend is hosted on Render: [https://nlpviz-qvao.onrender.com/](https://nlpviz-qvao.onrender.com/).
+- The frontend is hosted on Render: [https://nlpviz-qvao.onrender.com/](https://nlpviz-qvao.onrender.com)
 
 ## Contributing
 
