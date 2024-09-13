@@ -10,7 +10,7 @@ function NERPage() {
   // Function to call Flask API for NER
   const fetchEntities = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/ner', { text });
+      const response = await axios.post('https://nlpviz.onrender.com/ner', { text });
       setEntities(response.data);
       highlightEntities(response.data);
     } catch (error) {
